@@ -1,13 +1,22 @@
 import React from "react";
 import Todo from "./Todo";
+import "./Todo.css";
 
 const TodoList = props => {
   return (
-    <ul>
-      {props.todoArr.map(todo => {
-        return <Todo todoData={todo} key={todo.id} />;
+    <div className="todo-list">
+      {props.todoArr.map(item => {
+        if (item.task !== "") {
+          return (
+            <Todo
+              todoItem={item}
+              handleToggle={props.handleToggle}
+              key={item.id}
+            />
+          );
+        }
       })}
-    </ul>
+    </div>
   );
 };
 

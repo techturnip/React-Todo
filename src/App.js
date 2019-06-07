@@ -2,7 +2,23 @@ import React from "react";
 import TodoForm from "./components/TodoComponents/TodoForm";
 import TodoList from "./components/TodoComponents/TodoList";
 
-const todoList = [];
+const todoList = [
+  {
+    task: "Take out trash",
+    id: Date.now(),
+    completed: false
+  },
+  {
+    task: "Take out trash",
+    id: Date.now() + 1,
+    completed: false
+  },
+  {
+    task: "Take out trash",
+    id: Date.now() + 2,
+    completed: false
+  }
+];
 
 class App extends React.Component {
   constructor(props) {
@@ -15,35 +31,51 @@ class App extends React.Component {
     };
   }
 
-  handleInputChange = e => {
-    this.setState({ task: e.target.value });
-  };
-
-  handleFormSubmit = e => {
-    e.preventDefault();
-    const newTodo = {
-      task: this.state.task,
+  addTodo = newItem => {
+    const newTodoItem = {
+      task: newItem,
       id: Date.now(),
       completed: false
     };
 
     this.setState({
-      todo: [...this.state.todo, newTodo]
+      todo: [...this.state.todo, newTodoItem]
     });
+  };
 
-    todoList.push(newTodo);
+  handleToggle = id => {
+    let newList = this.state.todo.map(item => {
+      if (item.id === id) {
+        const newObj = {
+          ...item,
+          completed: !item.completed
+        };
+        return newObj;
+      } else {
+        return item;
+      }
+    });
+    this.setState({ todo: newList });
+  };
+
+  clearCompleted = e => {
+    if (this.state.todo.length >= 0) {
+      let newList = this.state.todo.filter(item => item.completed !== true);
+
+      this.setState({ todo: newList.filter(item => item.task !== "") });
+    }
 
     console.log(this.state.todo);
   };
 
   render() {
     return (
-      <div>
+      <div className="container">
         <h2> Welcome to your Todo App! </h2>
-        <TodoList todoArr={todoList} />
+        <TodoList todoArr={this.state.todo} handleToggle={this.handleToggle} />
         <TodoForm
-          onInputChange={this.handleInputChange}
-          onFormSubmit={this.handleFormSubmit}
+          addNewTodo={this.addTodo}
+          onClearCompleted={this.clearCompleted}
         />
       </div>
     );
