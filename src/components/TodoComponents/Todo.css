@@ -1,0 +1,36 @@
+.container {
+  font-family: Arial, Helvetica, sans-serif;
+  max-width: 968px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.todo-list {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  margin-bottom: 1rem;
+}
+
+.item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30px;
+  width: 32%;
+  margin: 5px;
+  border: solid 1px turquoise;
+}
+
+.completed {
+  text-decoration: line-through;
+}
+
+.todo-input,
+.btn {
+  font-size: 1.2rem;
+  background: coral;
+  border: solid 1px black;
+}
